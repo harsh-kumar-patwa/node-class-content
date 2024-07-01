@@ -57,15 +57,30 @@ fs.copyFileSync(fileSourcePath,path.join(destinationPath,path.basename(fileSourc
 
 const http = require('http');
 const server = http.createServer((req,res) => {
-    res.setHeader('Content-Type','text/html');
-    res.write('<html><head><title>Node js</title></head> <body>');
-    res.write('<h1>Hello World</h1>');
-    res.write('</body></html>');
-    res.end();
+    if(req.url==='/'){
+        res.setHeader('Content-Type','text/html');
+        res.write('<html><head><title>Node js</title></head> <body>');
+        res.write('<h1>Hello World</h1>');
+        res.write('</body></html>');
+        res.end();
+    }
+    else if(req.url==='/login'){
+        res.setHeader('Content-Type','text/html');
+        res.write('<html><head><title>Node js</title></head> <body>');
+        res.write('<h1>Hello login</h1>');
+        res.write('</body></html>');
+        res.end();
+    }
+    else if(req.url==='/name'){
+        res.setHeader('Content-Type','text/html');
+        res.write(fs.readFileSync('index.html'));
+        res.end();
+    }
 });
 
 const port = 3000;
 const host = 'localhost';
 server.listen(port,host,()=>{
     console.log(`Server is running on http://${host}:${port}`);
-})
+});
+
